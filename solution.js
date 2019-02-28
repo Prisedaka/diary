@@ -18,6 +18,7 @@ export default () => {
     extended: false,
   }));
   // app.use('/assets', Express.static(process.env.NODE_PATH.split(':')[0]));
+  app.use(Express.static('public'));
   app.use(session({
     secret: 'secret key',
     resave: false,
