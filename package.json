@@ -38,6 +38,7 @@
     "jest-cli": "^22.4.3"
   },
   "dependencies": {
+    "pug": "*",
     "make": "*",
     "express": "*",
     "express-session": "*",

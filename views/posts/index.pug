@@ -1,19 +1,45 @@
 extends ../layouts/app.pug
 
-block content
+//- block content
 
-  if posts.length > 0
-    table.table
-      tr
-        th Title
-        th Actions
-      for post in posts
-        tr
-          td
-            a(href=`/posts/${post.id}`)= post.title
-          td
-            a(href=`/posts/${post.id}/edit`) Edit
-            form.form-inline.d-inline-block(action=`/posts/${post.id}?_method=DELETE` method='post')
-              button.btn.btn-link(type='submit') Delete
-  else
-    p Пусто
+//-   if posts.length > 0
+//-     table.table
+//-       tr
+//-         th Title
+//-         th Actions
+//-       for post in posts
+//-         tr
+//-           td
+//-             a(href=`/posts/${post.id}`)= post.title
+//-           td
+//-             a(href=`/posts/${post.id}/edit`) Edit
+//-             form.form-inline.d-inline-block(action=`/posts/${post.id}?_method=DELETE` method='post')
+//-               button.btn.btn-link(type='submit') Delete
+//-   else
+//-     p Пусто
+
+block content
+  .row.mt-3
+    .col-sm-6.mx-auto
+      if posts.length > 0
+        for post in posts
+          div.card.card1
+            .card-body
+              h5.card-title= post.title
+              p.card-text= post.body
+              a.btn.btn-outline-primary.btn-sm(role='button' href=`/posts/${post.id}/edit`) Edit
+              //- a(href=`/posts/${post.id}/edit`) Edit
+              form.form-inline.d-inline-block(action=`/posts/${post.id}?_method=DELETE` method='post')
+              button.btn.btn-outline-danger.btn-sm(type='submit') Delete
+      else
+        p You are no notes
+
+//- <div class="card" style="width: 18rem;">
+//-   <div class="card-body">
+//-     <h5 class="card-title">Card title</h5>
+//-     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+//-     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//-     <a href="#" class="card-link">Card link</a>
+//-     <a href="#" class="card-link">Another link</a>
+//-   </div>
+//- </div>
