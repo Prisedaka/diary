@@ -27,10 +27,15 @@ export default () => {
   app.use(flash());
 
   // DATA
-  const users = [new User('admin', encrypt('qwerty'))];
+  const users = [
+    new User('admin', encrypt('qwerty')),
+    new User('user', encrypt('1')),
+  ];
   const posts = [
-    new Post('hello', 'how are your?'),
-    new Post('nodejs', 'story about nodejs'),
+    new Post('Гостевая запись 1', 'The first half of life consists of the capacity to enjoy without the chance, the last half consists of the chance without the capacity. Mark Twain', 'guest', 'Sat Mar 01 2019'),
+    new Post('Гостевая запись 2', 'Political language is designed to make lies sound truthful and murder respectable and to give an appearance of solidity to pure wind. George Orwell', 'guest', 'Sat Mar 01 2019'),
+    new Post('Запись 1 админа', 'My religion consists of a humble admiration of the illimitable superior spirit who reveals himself in the slight details we are able to perceive with our frail and feeble mind. Albert Einstein', 'admin', 'Sat Mar 01 2019'),
+    new Post('Запись 2 админа', 'To be conscious that you are ignorant is a great step to knowledge. Benjamin Disraeli', 'admin', 'Sat Mar 01 2019'),
   ];
 
   app.use((req, res, next) => {
@@ -61,10 +66,10 @@ export default () => {
     res.render('posts/new', { form: {}, errors: {} });
   });
 
-  app.get('/posts/:id', (req, res) => {
-    const post = posts.find(p => p.id.toString() === req.params.id);
-    res.render('posts/show', { post });
-  });
+  // app.get('/posts/:id', (req, res) => {
+  //   const post = posts.find(p => p.id.toString() === req.params.id);
+  //   res.render('posts/show', { post });
+  // });
 
   app.post('/posts', (req, res) => {
     const { title, body } = req.body;
@@ -79,9 +84,11 @@ export default () => {
     }
 
     if (Object.keys(errors).length === 0) {
-      const post = new Post(title, body);
+      const currentDate = new Date();
+      const post = new Post(title, body, res.locals.currentUser.nickname, currentDate.toDateString());
       posts.push(post);
-      res.redirect(`/posts/${post.id}/edit`);
+      // res.redirect(`/posts/${post.id}/edit`);
+      res.redirect('/posts');
       return;
     }
 

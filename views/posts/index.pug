@@ -5,13 +5,15 @@ block content
     .col-sm-6.mx-auto
       if posts.length > 0
         for post in posts
-          div.card._card-indent
+          .card._card-indent
             .card-body
               h5.card-title= post.title
+              h6.card-subtitle.mb-2.text-muted= 'by ' + post.author + ' on ' + post.date
               p.card-text= post.body
               a.btn.btn-link.btn-sm(href=`/posts/${post.id}/edit`) Edit
               //- a(href=`/posts/${post.id}/edit`) Edit
               form.form-inline.d-inline-block(action=`/posts/${post.id}?_method=DELETE` method='post')
                 button.btn.btn-link.btn-sm(type='submit') Delete
+              
       else
         p You are no notes
